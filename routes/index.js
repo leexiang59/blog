@@ -1,9 +1,12 @@
-var home = require('./home')
-var users = require('./users')
+// API
+var apis = require('../api/index')
+// Page
+var pages = require('../page/index')
 
 module.exports = function (app) {
 
-  app.get('/', home);
+  apis(app);
 
-  app.get('/users', users);
+  pages(app);
+
 };
