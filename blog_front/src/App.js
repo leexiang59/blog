@@ -3,13 +3,33 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      userList: []
+    }
+  }
+  componentDidMount() {
+    fetch(`//${window.location.host}/api/user/list`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 0) {
+          this.setState({
+            userList: data.data
+          })
+        }
+      })
+  }
   render() {
+    let { userList } = this.state
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            {
+              userList.map((item, index) => <span key={index + ""} style={{ paddingRight: '10px' }}>{item.name}</span>)
+            }
           </p>
           <a
             className="App-link"
