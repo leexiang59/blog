@@ -10,7 +10,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    fetch(`//${window.location.host}/api/user/list`)
+    fetch(`/api/user/list`)
       .then(res => res.json())
       .then(data => {
         if (data.status === 0) {
