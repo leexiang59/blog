@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.less';
-
+import Header from './component/Header/Header'
+import homeLogo from './img/home_logo.jpg';
 class App extends Component {
   constructor(props) {
     super(props)
@@ -21,25 +22,22 @@ class App extends Component {
       })
   }
   render() {
-    let { userList } = this.state
+    let age = new Date().getFullYear()
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            {
-              userList.map((item, index) => <span key={index + ""} style={{ paddingRight: '10px' }}>{item.name}</span>)
-            }
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div  className="App">
+        <Router>
+          <Header />
+        </Router>
+        <div className='home'>
+          <div className='logo'>
+            <img src={homeLogo} />
+          </div>
+          <div className='info'>
+            <p>Age：{age-1993}</p>
+            <p>Country：CHINA</p>
+          </div>
+        </div>
+        <footer></footer>
       </div>
     );
   }

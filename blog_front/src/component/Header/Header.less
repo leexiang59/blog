@@ -1,0 +1,30 @@
+@import '../../css/class.less';
+.header {
+    max-width: 120rem;
+    margin: 0 auto;
+    padding-top: 3rem;
+    text-align: center;
+    .flex();
+    justify-content: center;
+    ul{
+        padding:1rem 0;
+        //overflow: hidden;
+        .flex();
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        li{
+            //float: left;
+            //width:25%;
+            margin: 0 1rem;
+            text-align: center;
+            a{
+                padding: 0.5rem 1rem; 
+                font-size: 2rem;
+                display: inline-block;
+                color:white;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
