@@ -6,10 +6,10 @@ export default class Header extends Component{
         super(props)
         this.state={
             navList:[
-                {title:'ABOUT',href:''},
-                {title:'RESUME',href:''},
-                {title:'BLOG',href:''},
-                {title:'CONTACT',href:''}
+                {title:'ABOUT',href:'/'},
+                {title:'RESUME',href:'/resume'},
+                {title:'BLOG',href:'/blog'},
+                {title:'CONTACT',href:'/contact'}
             ]
         }
     }

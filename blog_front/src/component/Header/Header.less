@@ -1,6 +1,7 @@
 @import '../../css/class.less';
 .header {
-    max-width: 120rem;
+    width:60%;
+    max-width: @pageWidth;
     margin: 0 auto;
     padding-top: 3rem;
     text-align: center;
@@ -10,8 +11,9 @@
         padding:1rem 0;
         //overflow: hidden;
         .flex();
-        justify-content: flex-start;
+        justify-content: space-around;
         flex-wrap: wrap;
+        width: 100%;
         li{
             //float: left;
             //width:25%;
@@ -19,7 +21,7 @@
             text-align: center;
             a{
                 padding: 0.5rem 1rem; 
-                font-size: 2rem;
+                font-size: 1.6rem;
                 display: inline-block;
                 color:white;
                 text-decoration: none;
