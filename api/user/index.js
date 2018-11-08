@@ -1,9 +1,9 @@
 let mysql = require('mysql');
 let connectObj = {
-    host: '167.179.73.242',
+    host: '47.107.152.246',
     user: 'root',
-    password: 'dl0509lx',
-    database: 'blog'
+    password: 'dl,0509.LX',
+    database: 'will_self'
 }
 module.exports = {
     // 增加用户信息
@@ -27,6 +27,7 @@ module.exports = {
         let connection = mysql.createConnection(connectObj);
         connection.connect();
         connection.query('SELECT * FROM user', function (error, results, fields) {
+            console.log(3)
             if (error) throw error;
             res.json({
                 status: 0,
