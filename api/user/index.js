@@ -27,6 +27,7 @@ module.exports = {
         let connection = mysql.createConnection(connectObj);
         connection.connect();
         connection.query('SELECT * FROM user', function (error, results, fields) {
+            console.log(3)
             if (error) throw error;
             res.json({
                 status: 0,

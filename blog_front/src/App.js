@@ -14,15 +14,15 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    // fetch(`/api/user/list`)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if (data.status === 0) {
-    //       this.setState({
-    //         userList: data.data
-    //       })
-    //     }
-    //   })
+    fetch(`/api/user/list`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 0) {
+          this.setState({
+            userList: data.data
+          })
+        }
+      })
   }
   render() {
     return (
