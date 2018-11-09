@@ -68,24 +68,26 @@ export default class Edit extends Component {
   render () {
     let {title,editorState} = this.state
     return (
-      <div className='edit'>
-        <div className="edit-content">
-          <div className="edit-item">
-            <p>Title：</p>
-            <input className="title" value={title} onChange={this.titleChange}/>
-          </div>
-          <div className="edit-item">
-            <p>Content：</p>
-            <div className="article-braft-edit">
-              <BraftEditor
-                value={editorState}
-                onChange={this.handleEditorChange}
-                //onSave={this.saveEditorContent}
-              />
+      <div className="blog">
+        <div className='edit'>
+          <div className="edit-content">
+            <div className="edit-item">
+              <p>Title：</p>
+              <input className="title" value={title} onChange={this.titleChange}/>
             </div>
-          </div>
-          <div className="edit-item item-submit">
-            <button className="submit" onClick={this.saveEditorContent}>Save</button>
+            <div className="edit-item">
+              <p>Content：</p>
+              <div className="article-braft-edit">
+                <BraftEditor
+                  value={editorState}
+                  onChange={this.handleEditorChange}
+                  //onSave={this.saveEditorContent}
+                />
+              </div>
+            </div>
+            <div className="edit-item item-submit">
+              <button className="submit" onClick={this.saveEditorContent}>Save</button>
+            </div>
           </div>
         </div>
       </div>

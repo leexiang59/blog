@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.less'
 import Header from './component/Header/Header'
 import About from './page/about'
 import Resume from './page/resume'
-import {Blog, Edit} from './page/blog'
+import { List, Details, Edit } from './page/blog'
 import Contact from './page/contact'
 class App extends Component {
   constructor (props) {
@@ -35,8 +35,8 @@ class App extends Component {
             <Switch>
               <Route path='/blog/edit/:id' component={Edit} />
               <Route path='/blog/edit' component={Edit} />
-              <Route path='/blog/:id' component={Blog} />
-              <Route exact path='/blog' component={Blog} />
+              <Route path='/blog/:id' component={Details} />
+              <Route exact path='/blog' component={List} />
             </Switch>
             <Route path='/contact' component={Contact} />
             <footer />

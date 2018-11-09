@@ -22,21 +22,24 @@ export default class List extends Component {
   }
 
   render () {
-    let {articleList} = this.state
+    let { articleList } = this.state
     return (
-      <div className='article-list'>
-        {
-          articleList.map((item, index) =>
-            <Link key={index} className='article-item' to={`/blog/${item.id}`}>
-              <h3>{item.title}</h3>
-              <p className='message'>
-                <span>{item.author}</span>
-                <span>{item.createTime}</span>
-              </p>
-              <p className='content' dangerouslySetInnerHTML={{__html: item.content}} />
-            </Link>
-          )
-        }
+      <div className='blog'>
+        <div className='list'>
+          {
+            articleList.map((item, index) =>
+              <div key={index} className='article-item'>
+                <Link to={`/blog/${item.id}`}>
+                  <h3 className="title">{item.title}</h3>
+                  <p className='message'>
+                    <span>{item.createTime}</span>
+                  </p>
+                  <p className='content' dangerouslySetInnerHTML={{ __html: item.content }} />
+                </Link>
+              </div>
+            )
+          }
+        </div>
       </div>
     )
   }
