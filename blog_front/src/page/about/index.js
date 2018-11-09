@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './about.less';
-import homeLogo from '../../img/home_logo.jpg';
+//import homeLogo from '../../img/home_logo.jpg';
 export default class About extends Component {
     render() {
         // let age = new Date().getFullYear()
