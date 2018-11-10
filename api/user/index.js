@@ -1,15 +1,7 @@
-let mysql = require('mysql')
-let connectObj = {
-  host: '47.107.152.246',
-  user: 'root',
-  password: 'dl,0509.LX',
-  database: 'will_self'
-}
+let connection = require('../sql_config')
 module.exports = {
-    // 增加用户信息
+  // 注册
   add: function (req, res) {
-    let connection = mysql.createConnection(connectObj)
-    connection.connect()
     let body = req.body
     connection.query('INSERT INTO user(name,age) VALUES(?,?)', [body.name, body.age], function (error, results, fields) {
       if (error) throw error
@@ -19,15 +11,11 @@ module.exports = {
         message: '添加成功'
       })
     })
-    connection.end()
   },
 
-    // 查询用户表所有用户信息
+  // 查询用户表所有用户信息
   get: function (req, res) {
-    let connection = mysql.createConnection(connectObj)
-    connection.connect()
     connection.query('SELECT * FROM user', function (error, results, fields) {
-      console.log(3)
       if (error) throw error
       res.json({
         status: 0,
@@ -35,13 +23,10 @@ module.exports = {
         message: '获取成功'
       })
     })
-    connection.end()
   },
 
-    // 修改用户信息
+  // 修改用户信息
   update: function (req, res) {
-    let connection = mysql.createConnection(connectObj)
-    connection.connect()
     let body = req.body
     connection.query('UPDATE user SET name=?,age=? WHERE id=?', [body.name, body.age, body.id], function (error, results, fields) {
       if (error) throw error
@@ -51,13 +36,10 @@ module.exports = {
         message: '更新成功'
       })
     })
-    connection.end()
   },
 
-    // 删除用户信息
+  // 删除用户信息
   delete: function (req, res) {
-    let connection = mysql.createConnection(connectObj)
-    connection.connect()
     let body = req.body
     connection.query('DELETE FROM user WHERE id=?', [body.id], function (error, results, fields) {
       if (error) throw error
@@ -67,6 +49,72 @@ module.exports = {
         message: '删除成功'
       })
     })
-    connection.end()
+  },
+
+  // 登录
+  login: function (req, res) {
+    let body = req.body
+    connection.query('SELECT * FROM password,user WHERE password.userId=user.id and user.name=?',
+      [body.name],
+      function (error, results, fields) {
+        if (error) throw error
+        if (results && results.length > 0) {
+          if (results[0].password === body.password) {
+            req.session.userName = req.body.name // 设置session
+            res.json({
+              status: 0,
+              data: {
+                userName: body.name
+              },
+              message: '登录成功'
+            })
+          } else {
+            res.json({
+              status: 10001,
+              data: null,
+              message: '密码错误'
+            })
+          }
+        } else {
+          res.json({
+            status: 1000,
+            data: null,
+            message: '用户不存在'
+          })
+        }
+      })
+  },
+
+  // 登出
+  logout: function (req, res) {
+    let session = req.session
+    if (session && session.userName) {
+      req.session.userName = null
+    }
+    res.json({
+      status: 0,
+      data: null,
+      message: '已登出'
+    })
+  },
+
+  // 获取用户信息
+  user_info: function (req, res) {
+    let session = req.session
+    if (session && session.userName) {
+      res.json({
+        status: 0,
+        data: {
+          userName: session.userName
+        },
+        message: '成功'
+      })
+    } else {
+      res.json({
+        status: 1008,
+        data: null,
+        message: '未登录'
+      })
+    }
   }
 }

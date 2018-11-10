@@ -6,31 +6,33 @@ import About from './page/about'
 import Resume from './page/resume'
 import { List, Details, Edit } from './page/blog'
 import Contact from './page/contact'
+
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      userList: []
+      userInfo: null
     }
   }
   componentDidMount () {
-    fetch(`/api/user/list`)
+    fetch(`/api/user/user_info`)
       .then(res => res.json())
       .then(data => {
         if (data.status === 0) {
           this.setState({
-            userList: data.data
+            userInfo: data.data
           })
         }
       })
   }
   render () {
+    let { userInfo } = this.state
     return (
       <div>
         <Router>
           <div className='App'>
             <Header />
-            <Route exact path='/' component={About} />
+            <Route exact path='/' component={() => (<About userInfo={userInfo} />)} />
             <Route path='/resume' component={Resume} />
             <Switch>
               <Route path='/blog/edit/:id' component={Edit} />
