@@ -31,4 +31,5 @@ module.exports = function (app) {
   app.get(`${apiPath.article}list`, article.get)
   app.post(`${apiPath.article}add`, article.add)
   app.post(`${apiPath.article}update`, article.update)
+  app.post(`${apiPath.article}delete`, article.delete)
 }

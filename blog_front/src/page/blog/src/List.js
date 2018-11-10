@@ -26,11 +26,14 @@ export default class List extends Component {
     return (
       <div className='blog'>
         <div className='list'>
+          <div className='add-blog'>
+            <Link to="/blog/edit">Add</Link>
+          </div>
           {
             articleList.map((item, index) =>
               <div key={index} className='article-item'>
                 <Link to={`/blog/${item.id}`}>
-                  <h3 className="title">{item.title}</h3>
+                  <h3 className='title'>{item.title}</h3>
                   <p className='message'>
                     <span>{item.createTime}</span>
                   </p>

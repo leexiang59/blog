@@ -15,9 +15,14 @@ class App extends Component {
     }
   }
   componentDidMount () {
-    fetch(`/api/user/user_info`)
+    let fetConfig = {
+      method:"GET",
+      credentials: 'include',
+    }
+    fetch(`/api/user/user_info`,fetConfig)
       .then(res => res.json())
       .then(data => {
+        console.log(fetConfig)
         if (data.status === 0) {
           this.setState({
             userInfo: data.data

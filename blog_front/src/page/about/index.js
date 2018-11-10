@@ -35,7 +35,6 @@ export default class About extends Component {
         }
       })
   }
-
   render () {
     // let age = new Date().getFullYear()
     const {userInfo} = this.props

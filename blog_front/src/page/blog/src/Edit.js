@@ -28,14 +28,14 @@ export default class Edit extends Component {
   }
 
   // 保存
-  saveEditorContent = ()=> {
+  saveHandle=(type)=>{
     let {id, title, editorState} = this.state
-    fetch(`/api/article/update`, {
+    fetch(`/api/article/${id ? 'update' : 'add'}`, {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json;charset=UTF-8'},
       body: JSON.stringify({
-        "id": id,
+        "id": id || undefined,
         "title": title,
         "content": editorState.toHTML()
       })
@@ -43,15 +43,26 @@ export default class Edit extends Component {
       .then(res => res.json())
       .then(data => {
         if (data.status === 0) {
-          this.props.history.push(`/blog/${id}`)
+          if(type==='btn'){
+            this.props.history.push(`/blog/${id || data.data.id || ''}`)
+          }else{
+            this.props.history.push(`/blog/edit/${data.data.id}`)
+            this.props.history.goBack() // 每次Ctrl+S保存之后回退一下history，保证点击浏览器回退按钮时可以返回上一页。
+          }
         }
       })
   }
+  // Ctrl+S 保存，留在当前页
+  saveEditorContentByKey=()=>{
+    this.saveHandle('key')
+  }
+  // 点击按钮保存，跳转回详情页
+  saveEditorContent = ()=> {
+    this.saveHandle('btn')
+  }
 
-
-
-  componentWillMount () {
-    fetch(`/api/article/list/${this.state.id}`)
+  fetchArticle=(id)=>{
+    fetch(`/api/article/list/${id}`)
       .then(res => res.json())
       .then(data => {
         if (data.status === 0) {
@@ -63,6 +74,11 @@ export default class Edit extends Component {
           })
         }
       })
+  }
+
+  componentWillMount () {
+    let {id} = this.state
+    id && this.fetchArticle(id)
   }
 
   render () {
@@ -81,7 +97,7 @@ export default class Edit extends Component {
                 <BraftEditor
                   value={editorState}
                   onChange={this.handleEditorChange}
-                  //onSave={this.saveEditorContent}
+                  onSave={this.saveEditorContentByKey}
                 />
               </div>
             </div>

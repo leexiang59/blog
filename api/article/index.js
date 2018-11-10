@@ -3,13 +3,15 @@ module.exports = {
   // 增加文章
   add: function (req, res) {
     let body = req.body
-    connection.query('INSERT INTO article(title,content,author,createTime,createTimeStamp,updateTime,updateTimeStamp) VALUES(?,?,?,?,?,?,?)',
+    connection.query(`INSERT INTO article(title,content,author,createTime,createTimeStamp,updateTime,updateTimeStamp) VALUES(?,?,'will',?,?,?,?)`,
       [body.title, body.content, body.author, body.createTime, body.createTimeStamp, body.updateTime, body.updateTimeStamp],
       function (error, results, fields) {
         if (error) throw error
         res.json({
           status: 0,
-          data: null,
+          data: {
+            id: results.insertId
+          },
           message: '添加成功'
         })
       })
@@ -35,7 +37,9 @@ module.exports = {
       if (error) throw error
       res.json({
         status: 0,
-        data: null,
+        data: {
+          id: body.id
+        },
         message: '更新成功'
       })
     })
@@ -44,7 +48,7 @@ module.exports = {
   // 删除文章
   delete: function (req, res) {
     let body = req.body
-    connection.query('DELETE FROM user WHERE id=?', [body.id], function (error, results, fields) {
+    connection.query('DELETE FROM article WHERE id=?', [body.id], function (error, results, fields) {
       if (error) throw error
       res.json({
         status: 0,

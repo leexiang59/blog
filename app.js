@@ -20,16 +20,21 @@ app.use(express.urlencoded({ extended: false })) // 加载解析urlencoded请求
 app.use(cookieParser('secret_will')) // 加载解析cookie的中间件
 app.use(express.static(path.join(__dirname, 'public'))) // 设置public文件夹为存放静态文件的目录
 app.use(bodyparser.json()) // 使用bodyparder中间件，
-app.use(bodyparser.urlencoded({ extended: true }))
+app.use(bodyparser.urlencoded({ extended: false }))
 // 使用 session 中间件
 app.use(session({
   secret: 'secret_will', // 对session id 相关的cookie 进行签名
   resave: true,
   saveUninitialized: false, // 是否保存未初始化的会话
   cookie: {
-    maxAge: 1000 * 60 * 3 // 设置 session 的有效时间，单位毫秒
+    //secure: true,
+    //maxAge: 1000 * 60 * 60 // 设置 session 的有效时间，单位毫秒
   }
 }))
+
+//禁止304
+//app.disable('etag');
+
 // app.use('/', indexRouter);  //路由控制器
 // app.use('/users', usersRouter);
 routes(app)
