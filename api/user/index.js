@@ -101,7 +101,6 @@ module.exports = {
   // 获取用户信息
   user_info: function (req, res) {
     let session = req.session
-    console.log(req.sessionID)
     if (session && session.userName) {
       res.json({
         status: 0,

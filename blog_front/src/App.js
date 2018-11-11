@@ -4,7 +4,7 @@ import './App.less'
 import Header from './component/Header/Header'
 import About from './page/about'
 import Resume from './page/resume'
-import { List, Details, Edit } from './page/blog'
+import { List, Details, Edit, Add } from './page/blog'
 import Contact from './page/contact'
 
 class App extends Component {
@@ -16,18 +16,26 @@ class App extends Component {
   }
   componentDidMount () {
     let fetConfig = {
-      method:"GET",
-      credentials: 'include',
+      method: 'GET',
+      credentials: 'include'
     }
-    fetch(`/api/user/user_info`,fetConfig)
-      .then(res => res.json())
+    fetch(`/api/user/user_info`, fetConfig)
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          throw res
+        }
+      })
       .then(data => {
-        console.log(fetConfig)
         if (data.status === 0) {
           this.setState({
             userInfo: data.data
           })
         }
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
   render () {
@@ -42,6 +50,7 @@ class App extends Component {
             <Switch>
               <Route path='/blog/edit/:id' component={Edit} />
               <Route path='/blog/edit' component={Edit} />
+              <Route path='/blog/add' component={Add} />
               <Route path='/blog/:id' component={Details} />
               <Route exact path='/blog' component={List} />
             </Switch>
