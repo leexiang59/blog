@@ -24,7 +24,7 @@ class App extends Component {
         if (res.status === 200) {
           return res.json()
         } else {
-          throw res
+          throw res.statusText
         }
       })
       .then(data => {

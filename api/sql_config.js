@@ -8,5 +8,9 @@ const connectObj = {
 }
 let connection = mysql.createConnection(connectObj)
 connection.connect()
+connection.error = (err) => {
+  console.log(err)
+  connection.connect()
+}
 
 module.exports = connection

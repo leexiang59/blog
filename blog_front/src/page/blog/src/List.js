@@ -20,7 +20,6 @@ export default class List extends Component {
         }
       })
   }
-
   render () {
     let { articleList } = this.state
     return (

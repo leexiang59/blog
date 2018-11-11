@@ -3,8 +3,11 @@ module.exports = {
   // 注册
   add: function (req, res) {
     let body = req.body
-    connection.query('INSERT INTO user(name,age) VALUES(?,?)', [body.name, body.age], function (error, results, fields) {
-      if (error) throw error
+    connection.query('INSERT INTO user(name,age) VALUES(?,?)', [body.name, body.age], function (err, results, fields) {
+      if (err) {
+        connection.error(err)
+        return false
+      }
       res.json({
         status: 0,
         data: null,
@@ -15,8 +18,11 @@ module.exports = {
 
   // 查询用户表所有用户信息
   get: function (req, res) {
-    connection.query('SELECT * FROM user', function (error, results, fields) {
-      if (error) throw error
+    connection.query('SELECT * FROM user', function (err, results, fields) {
+      if (err) {
+        connection.error(err)
+        return false
+      }
       res.json({
         status: 0,
         data: results,
@@ -28,21 +34,29 @@ module.exports = {
   // 修改用户信息
   update: function (req, res) {
     let body = req.body
-    connection.query('UPDATE user SET name=?,age=? WHERE id=?', [body.name, body.age, body.id], function (error, results, fields) {
-      if (error) throw error
-      res.json({
-        status: 0,
-        data: null,
-        message: '更新成功'
+    connection.query('UPDATE user SET name=?,age=? WHERE id=?',
+      [body.name, body.age, body.id],
+      function (err, results, fields) {
+        if (err) {
+          connection.error(err)
+          return false
+        }
+        res.json({
+          status: 0,
+          data: null,
+          message: '更新成功'
+        })
       })
-    })
   },
 
   // 删除用户信息
   delete: function (req, res) {
     let body = req.body
-    connection.query('DELETE FROM user WHERE id=?', [body.id], function (error, results, fields) {
-      if (error) throw error
+    connection.query('DELETE FROM user WHERE id=?', [body.id], function (err, results, fields) {
+      if (err) {
+        connection.error(err)
+        return false
+      }
       res.json({
         status: 0,
         data: null,
@@ -56,8 +70,11 @@ module.exports = {
     let body = req.body
     connection.query('SELECT * FROM password,user WHERE password.userId=user.id and user.name=?',
       [body.name],
-      function (error, results, fields) {
-        if (error) throw error
+      function (err, results, fields) {
+        if (err) {
+          connection.error(err)
+          return false
+        }
         if (results && results.length > 0) {
           if (results[0].password === body.password) {
             req.session.userName = req.body.name // 设置session
