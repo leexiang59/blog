@@ -4,7 +4,8 @@ function sortByTime (data, time) {
   let len = data.length - 1
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < len - i; j++) {
-      if (data[j][time] < data[j + 1][time]) {
+      // null < '2018-11-12 19:36:53' => false
+      if (data[j][time] === null || data[j][time] < data[j + 1][time]) {
         let tmp = data[j]
         data[j] = data[j + 1]
         data[j + 1] = tmp
@@ -37,7 +38,7 @@ module.exports = {
 
   // 查询文章
   get: function (req, res) {
-    let SELECT = `SELECT article.*, DATE_FORMAT(article.createTime,'%Y-%m-%d %h:%i:%s') as createTime,DATE_FORMAT(article.updateTime,'%Y-%m-%d %h:%i:%s') as  updateTime FROM article 
+    let SELECT = `SELECT article.*, DATE_FORMAT(article.createTime,'%Y-%m-%d %H:%i:%s') as createTime,DATE_FORMAT(article.updateTime,'%Y-%m-%d %H:%i:%s') as  updateTime FROM article
     ${req.params && req.params.id ? `WHERE id=${req.params.id}` : ''}`
     connection.query(SELECT, function (err, results, fields) {
       if (err) {

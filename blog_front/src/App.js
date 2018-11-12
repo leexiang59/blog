@@ -6,7 +6,6 @@ import About from './page/about'
 import Resume from './page/resume'
 import { List, Details, Edit, Add } from './page/blog'
 import Contact from './page/contact'
-
 class App extends Component {
   constructor (props) {
     super(props)
