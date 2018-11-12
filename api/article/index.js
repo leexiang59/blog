@@ -37,7 +37,8 @@ module.exports = {
 
   // 查询文章
   get: function (req, res) {
-    let SELECT = req.params && req.params.id ? `SELECT * FROM article WHERE id=${req.params.id}` : 'SELECT * FROM article'
+    let SELECT = `SELECT article.*, DATE_FORMAT(article.createTime,'%Y-%m-%d %h:%i:%s') as createTime,DATE_FORMAT(article.updateTime,'%Y-%m-%d %h:%i:%s') as  updateTime FROM article 
+    ${req.params && req.params.id ? `WHERE id=${req.params.id}` : ''}`
     connection.query(SELECT, function (err, results, fields) {
       if (err) {
         connection.error(err, res)
