@@ -6,7 +6,7 @@ const connectObj = {
   password: 'dl,0509.LX',
   database: 'will_self'
 }
-let connection = null
+ let connection = null
 function startSQL () {
   connection = mysql.createConnection(connectObj)
   connection.connect(function (err) {
@@ -29,4 +29,5 @@ function startSQL () {
   }
 }
 startSQL()
+// let connection = mysql.createPool(connectObj)
 module.exports = connection
