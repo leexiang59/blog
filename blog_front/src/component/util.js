@@ -52,7 +52,11 @@ const util = {
         done && done(json)
       } else {
         fail && fail(json)
-        this.sendErrorToWX(json, url)
+        if (json.state === 1008) { // 未登录
+
+        } else {
+          this.sendErrorToWX(json, url)
+        }
       }
     }).catch(err => {
       this.sendErrorToWX(err, url)
