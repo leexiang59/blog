@@ -30,4 +30,10 @@ function startSQL () {
 }
 startSQL() */
 let connection = mysql.createPool(connectObj)
+connection.error = (err, res) => {
+  res.send({
+    state: -1,
+    message: err
+  })
+}
 module.exports = connection

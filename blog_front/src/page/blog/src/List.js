@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import util from '../../../component/util'
 export default class List extends Component {
   constructor (props) {
     super(props)
@@ -10,15 +11,14 @@ export default class List extends Component {
   }
 
   componentDidMount () {
-    fetch(`/api/article/list`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 0) {
-          this.setState({
-            articleList: data.data
-          })
-        }
-      })
+    util.fetchLite({
+      url: `/api/article/list`,
+      done: data => {
+        this.setState({
+          articleList: data.data
+        })
+      }
+    })
   }
   render () {
     let { articleList } = this.state

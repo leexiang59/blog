@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import EditorComponent from './EditorComponent'
+import util from '../../../component/util'
 export default class Edit extends Component {
   constructor (props) {
     super(props)
@@ -28,25 +29,24 @@ export default class Edit extends Component {
   // 保存
   saveHandle=(type)=>{
     let {id, title, articleData} = this.state
-    fetch(`/api/article/update`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {'Content-Type': 'application/json;charset=UTF-8'},
-      body: JSON.stringify({
-        "id": id,
-        "title": title,
-        "content": articleData.toHTML()
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 0) {
-          // 点击按钮保存时，跳转详情页。Ctrl+S保存时，留在当前编辑页。
-          if(type==='btn'){
-            this.props.history.push(`/blog/${id || data.data.id || ''}`)
-          }
+    util.fetchLite({
+      url: `/api/article/update`,
+      options:{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        body: JSON.stringify({
+          "id": id,
+          "title": title,
+          "content": articleData.toHTML()
+        })
+      },
+      done: data => {
+        // 点击按钮保存时，跳转详情页。Ctrl+S保存时，留在当前编辑页。
+        if(type==='btn'){
+          this.props.history.push(`/blog/${id || data.data.id || ''}`)
         }
-      })
+      }
+    })
   }
 
   // 点击按钮保存，跳转回详情页
@@ -55,17 +55,16 @@ export default class Edit extends Component {
   }
 
   fetchArticle=(id)=>{
-    fetch(`/api/article/list/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 0) {
-          let backData = data.data[0]
-          this.setState({
-            title: backData.title,
-            articleData: backData.content
-          })
-        }
-      })
+    util.fetchLite({
+      url: `/api/article/list/${id}`,
+      done: data => {
+        let backData = data.data[0]
+        this.setState({
+          title: backData.title,
+          articleData: backData.content
+        })
+      }
+    })
   }
 
   componentWillMount () {

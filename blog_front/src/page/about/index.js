@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './about.less'
+import util from '../../component/util'
 // import homeLogo from '../../img/home_logo.jpg';
 export default class About extends Component {
   constructor (props) {
@@ -18,22 +19,20 @@ export default class About extends Component {
   // 登录
   loginHandle=()=> {
     let {userName, password} = this.state
-    fetch(`/api/user/login`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {'Content-Type': 'application/json;charset=UTF-8'},
-      body: JSON.stringify({
-        "name": userName,
-        "password": password
-      })
+    util.fetchLite({
+      url: `/api/user/login`,
+      options: {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        body: JSON.stringify({
+          "name": userName,
+          "password": password
+        })
+      },
+      done: data => {
+        window.location.reload()
+      }
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 0) {
-          //this.setState({showLogin:false})
-          window.location.reload()
-        }
-      })
   }
   render () {
     // let age = new Date().getFullYear()

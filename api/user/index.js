@@ -8,7 +8,7 @@ module.exports = {
         connection.error(err, res)
       } else {
         res.json({
-          status: 0,
+          state: 0,
           data: null,
           message: '添加成功'
         })
@@ -23,7 +23,7 @@ module.exports = {
         connection.error(err, res)
       } else {
         res.json({
-          status: 0,
+          state: 0,
           data: results,
           message: '获取成功'
         })
@@ -41,7 +41,7 @@ module.exports = {
           connection.error(err, res)
         } else {
           res.json({
-            status: 0,
+            state: 0,
             data: null,
             message: '更新成功'
           })
@@ -57,7 +57,7 @@ module.exports = {
         connection.error(err, res)
       } else {
         res.json({
-          status: 0,
+          state: 0,
           data: null,
           message: '删除成功'
         })
@@ -78,7 +78,7 @@ module.exports = {
             if (results[0].password === body.password) {
               req.session.userName = req.body.name // 设置session
               res.json({
-                status: 0,
+                state: 0,
                 data: {
                   userName: body.name
                 },
@@ -86,14 +86,14 @@ module.exports = {
               })
             } else {
               res.json({
-                status: 10001,
+                state: 10001,
                 data: null,
                 message: '密码错误'
               })
             }
           } else {
             res.json({
-              status: 1000,
+              state: 1000,
               data: null,
               message: '用户不存在'
             })
@@ -109,7 +109,7 @@ module.exports = {
       req.session.userName = null
     }
     res.json({
-      status: 0,
+      state: 0,
       data: null,
       message: '已登出'
     })
@@ -120,7 +120,7 @@ module.exports = {
     let session = req.session
     if (session && session.userName) {
       res.json({
-        status: 0,
+        state: 0,
         data: {
           userName: session.userName
         },
@@ -128,7 +128,7 @@ module.exports = {
       })
     } else {
       res.json({
-        status: 1008,
+        state: 1008,
         data: null,
         message: '未登录'
       })

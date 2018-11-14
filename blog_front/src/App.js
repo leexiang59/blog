@@ -6,6 +6,7 @@ import About from './page/about'
 import Resume from './page/resume'
 import { List, Details, Edit, Add } from './page/blog'
 import Contact from './page/contact'
+import util from './component/util'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -14,28 +15,14 @@ class App extends Component {
     }
   }
   componentDidMount () {
-    let fetConfig = {
-      method: 'GET',
-      credentials: 'include'
-    }
-    fetch(`/api/user/user_info`, fetConfig)
-      .then(res => {
-        if (res.status === 200) {
-          return res.json()
-        } else {
-          throw res.statusText
-        }
-      })
-      .then(data => {
-        if (data.status === 0) {
-          this.setState({
-            userInfo: data.data
-          })
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    util.fetchLite({
+      url: `/api/user/user_info`,
+      done: data => {
+        this.setState({
+          userInfo: data.data
+        })
+      }
+    })
   }
   render () {
     let { userInfo } = this.state

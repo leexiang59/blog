@@ -4,9 +4,7 @@ var apis = require('../api/index')
 var pages = require('../page/index')
 
 module.exports = function (app) {
+  apis(app)
 
-  apis(app);
-
-  pages(app);
-
-};
+  pages(app)
+}

@@ -26,7 +26,7 @@ module.exports = {
           connection.error(err, res)
         } else {
           res.json({
-            status: 0,
+            state: 0,
             data: {
               id: results.insertId
             },
@@ -45,7 +45,7 @@ module.exports = {
         connection.error(err, res)
       } else {
         res.json({
-          status: 0,
+          state: 0,
           data: sortByTime(results, 'updateTime'), // 根据文章更新时间排序显示
           message: '获取成功'
         })
@@ -62,7 +62,7 @@ module.exports = {
         connection.error(err, res)
       } else {
         res.json({
-          status: 0,
+          state: 0,
           data: {
             id: body.id
           },
@@ -80,7 +80,7 @@ module.exports = {
         connection.error(err, res)
       } else {
         res.json({
-          status: 0,
+          state: 0,
           data: null,
           message: '删除成功'
         })

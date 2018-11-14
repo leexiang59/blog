@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import util from '../../../component/util'
 export default class Details extends Component {
   constructor (props) {
     super(props)
@@ -12,31 +13,29 @@ export default class Details extends Component {
 
   // 删除
   deleteHandle=()=>{
-    fetch(`/api/article/delete`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {'Content-Type': 'application/json;charset=UTF-8'},
-      body: JSON.stringify({
-        "id": this.state.id
-      })
+    util.fetchLite({
+      url: `/api/article/delete`,
+      options:{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        body: JSON.stringify({
+          "id": this.state.id
+        })
+      },
+      done: () => {
+        this.props.history.push('/blog/')
+      }
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 0) {
-          this.props.history.push('/blog/')
-        }
-      })
   }
   componentDidMount () {
-    fetch(`/api/article/list/${this.state.id}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 0) {
-          this.setState({
-            articleDetail: data.data[0]
-          })
-        }
-      })
+    util.fetchLite({
+      url:`/api/article/list/${this.state.id}`,
+      done:data=>{
+        this.setState({
+          articleDetail: data.data[0]
+        })
+      }
+    })
   }
 
   render () {
