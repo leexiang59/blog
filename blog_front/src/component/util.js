@@ -1,10 +1,14 @@
-
+const api = {
+  version: 'v1',
+  user: '/v1/user/',
+  article: '/v1/article/'
+}
 const util = {
   sendErrorToWX: function (err, url) {
     fetch(`https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=73ede3e3-e70b-4bb7-9f23-21ce41b09e10`, {
       method: 'POST',
       mode: 'no-cors',
-      headers: {'Content-Type': 'application/json;charset=UTF-8'},
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
       body: JSON.stringify({
         'msgtype': 'markdown',
         'markdown': {
@@ -32,8 +36,10 @@ const util = {
       }, 3 * 1000)
     })
     let fetchHandle = new Promise((resolve, reject) => {
-      fetch(url, {
+      fetch(window.location.hostname.indexOf('localhost') === -1 ? `//api.willli.top${url}` : url, {
+      // fetch(url, {
         method: 'GET',
+        mode: 'cors',
         credentials: 'include',
         ...options
       }).then(res => {
@@ -55,13 +61,13 @@ const util = {
         if (json.state === 1008) { // 未登录
 
         } else {
-          this.sendErrorToWX(json, url)
+          // this.sendErrorToWX(json, url)
         }
       }
     }).catch(err => {
-      this.sendErrorToWX(err, url)
+      // this.sendErrorToWX(err, url)
       error && error(err)
     })
   }
 }
-export default util
+export { util, api }
