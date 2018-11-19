@@ -22,4 +22,46 @@ module.exports = function (req, res) {
   let _has = c.hasOwnProperty('toString')   // 只包含自有属性，不包含继承属性
   let _pro = c.propertyIsEnumerable('y')    // 只包含自有属性且可枚举
   console.log('属性检测：', _in, _has, _pro)
+
+  /**
+   * 属性遍历
+   * */
+  for (let o in c) {
+    console.log(o)
+  }
+  console.log('keys:', Object.keys(c))   // keys只返回可枚举自有属性
+  console.log('keys:', Object.getOwnPropertyNames(c))   // getOwnPropertyNames返回所有自有属性
+
+  /**
+   * getter 和 setter
+   * */
+  let random = {
+    title: '',
+    get octet () { return Math.floor(Math.random() * 256) },
+    // octet:()=>{ return Math.floor(Math.random() * 256) },
+    set name (t) { this.title = t }
+  }
+  random.title = '343'
+  console.log(random, random.octet)
+
+  /**
+   * 原型属性、类属性、可扩展性
+   *
+   * 原型属性：
+   * 1、通过对象直接量创建的对象使用Object.prototype作为原型；
+   * 2、通过new创建的对象使用构造函数的prototype属性作为原型；
+   * 3、通过Object.create()创建的对象使用第一个参数（未指定时为null）作为原型。
+   *
+   * 类属性：
+   * Object.prototype.toString.call(o).slice(8,-1)
+   *
+   * 可扩展性：
+   * Object.esExtensible()  查看是否可扩展
+   * Object.preventExtensions()   禁止扩展
+   * */
+  console.log(Object.getPrototypeOf(a))   // 查看对象原型
+  console.log(Object.getPrototypeOf(b))
+  console.log(Object.getPrototypeOf(c))
+  console.log(a.isPrototypeOf(c))
+  console.log(Object.prototype.isPrototypeOf(c))
 }
