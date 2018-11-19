@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './about.less'
-import util from '../../component/util'
+import {util,api} from '../../component/util'
 // import homeLogo from '../../img/home_logo.jpg';
 export default class About extends Component {
   constructor (props) {
@@ -20,7 +20,7 @@ export default class About extends Component {
   loginHandle=()=> {
     let {userName, password} = this.state
     util.fetchLite({
-      url: `/api/user/login`,
+      url: `${api.user}login`,
       options: {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=UTF-8'},

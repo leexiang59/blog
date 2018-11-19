@@ -1,4 +1,6 @@
-let connection = require('../sql_config')
+let util = require('../../../public/javascripts/util')
+let { connection } = require('../config')
+
 // 根据时间排序（冒泡排序）
 function sortByTime (data, time) {
   let len = data.length - 1

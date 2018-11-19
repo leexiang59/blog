@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import util from '../../../component/util'
+import {util,api} from '../../../component/util'
 export default class List extends Component {
   constructor (props) {
     super(props)
@@ -12,7 +12,7 @@ export default class List extends Component {
 
   componentDidMount () {
     util.fetchLite({
-      url: `/api/article/list`,
+      url: `${api.article}list`,
       done: data => {
         this.setState({
           articleList: data.data

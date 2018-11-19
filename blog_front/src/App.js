@@ -6,7 +6,7 @@ import About from './page/about'
 import Resume from './page/resume'
 import { List, Details, Edit, Add } from './page/blog'
 import Contact from './page/contact'
-import util from './component/util'
+import { util, api } from './component/util'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -16,7 +16,7 @@ class App extends Component {
   }
   componentDidMount () {
     util.fetchLite({
-      url: `/api/user/user_info`,
+      url: `${api.user}user_info`,
       done: data => {
         this.setState({
           userInfo: data.data

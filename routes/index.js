@@ -1,5 +1,5 @@
 // API
-var apis = require('../api/index')
+var apis = require('../api/v1/index')
 // Page
 var pages = require('../page/index')
 

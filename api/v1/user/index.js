@@ -1,4 +1,4 @@
-let connection = require('../sql_config')
+let { connection } = require('../config')
 module.exports = {
   // 注册
   add: function (req, res) {

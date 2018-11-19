@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import EditorComponent from './EditorComponent'
-import util from '../../../component/util'
+import {util,api} from '../../../component/util'
 export default class Add extends Component {
   constructor (props) {
     super(props)
@@ -29,7 +29,7 @@ export default class Add extends Component {
   saveHandle=(type)=> {
     let {title, articleData} = this.state
     util.fetchLite({
-      url: `/api/article/add`,
+      url: `${api.article}add`,
       options: {
         method: 'POST',
         headers: {'Content-Type': 'application/json;charset=UTF-8'},

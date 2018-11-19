@@ -27,13 +27,30 @@ app.use(session({
   resave: true,
   saveUninitialized: false, // 是否保存未初始化的会话
   cookie: {
-    //secure: true,
-    //maxAge: 1000 * 60 * 60 // 设置 session 的有效时间，单位毫秒
+    // secure: true,
+    // maxAge: 1000 * 60 * 60 // 设置 session 的有效时间，单位毫秒
   }
 }))
 
-//禁止304
-//app.disable('etag');
+// 禁止304
+// app.disable('etag');
+
+// 跨域处理
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://www.willli.top')
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
+
+  // intercepts OPTIONS method
+  if (req.method === 'OPTIONS') {
+    // respond with 200
+    res.send(200)
+  } else {
+    // move on
+    next()
+  }
+})
 
 // app.use('/', indexRouter);  //路由控制器
 // app.use('/users', usersRouter);

@@ -1,4 +1,3 @@
-
 const mysql = require('mysql')
 const connectObj = {
   host: '47.107.152.246',
@@ -36,4 +35,8 @@ connection.error = (err, res) => {
     message: err
   })
 }
-module.exports = connection
+
+module.exports = {
+  version: 'v1',
+  connection: connection
+}
