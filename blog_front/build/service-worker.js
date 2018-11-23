@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/leexiang59/blog/precache-manifest.a959b77d7738be35a1884b37a10315f6.js"
+  "/leexiang59/blog/tree/master/blog_front/build/precache-manifest.16358ed3bc9897beb985888b894d19d8.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/leexiang59/blog/index.html", {
+workbox.routing.registerNavigationRoute("/leexiang59/blog/tree/master/blog_front/build/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
