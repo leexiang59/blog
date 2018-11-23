@@ -4,9 +4,11 @@ import './App.less'
 import Header from './component/Header/Header'
 import About from './page/about'
 import Resume from './page/resume'
-import { List, Details, Edit, Add } from './page/blog'
+import { ListPage, DetailsPage, EditPage, AddPage } from './page/blog'
 import Contact from './page/contact'
 import { util, api } from './component/util'
+import {UserInfoProvider} from './component/UserInfoContext'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -27,24 +29,24 @@ class App extends Component {
   render () {
     let { userInfo } = this.state
     return (
-      <div>
+      <UserInfoProvider value={userInfo}>
         <Router>
           <div className='App'>
             <Header />
             <Route exact path='/' component={() => (<About userInfo={userInfo} />)} />
             <Route path='/resume' component={Resume} />
             <Switch>
-              <Route path='/blog/edit/:id' component={Edit} />
-              <Route path='/blog/edit' component={Edit} />
-              <Route path='/blog/add' component={Add} />
-              <Route path='/blog/:id' component={Details} />
-              <Route exact path='/blog' component={List} />
+              <Route path='/blog/edit/:id' component={EditPage} />
+              <Route path='/blog/edit' component={EditPage} />
+              <Route path='/blog/add' component={AddPage} />
+              <Route path='/blog/:id' component={DetailsPage} />
+              <Route exact path='/blog' component={ListPage} />
             </Switch>
             <Route path='/contact' component={Contact} />
             <footer />
           </div>
         </Router>
-      </div>
+      </UserInfoProvider>
     )
   }
 }

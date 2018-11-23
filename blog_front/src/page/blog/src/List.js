@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import {util,api} from '../../../component/util'
-export default class List extends Component {
+import {util, api} from '../../../component/util'
+class List extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -22,12 +22,16 @@ export default class List extends Component {
   }
   render () {
     let { articleList } = this.state
+    const {userInfo} = this.props
     return (
       <div className='blog'>
         <div className='list'>
-          <div className='add-blog'>
-            <Link to='/blog/add'>Add</Link>
-          </div>
+          {
+            userInfo &&
+            <div className='add-blog'>
+              <Link to='/blog/add'>Add</Link>
+            </div>
+          }
           {
             articleList.map((item, index) =>
               <div key={index} className='article-item'>
@@ -46,3 +50,5 @@ export default class List extends Component {
     )
   }
 }
+
+export default List

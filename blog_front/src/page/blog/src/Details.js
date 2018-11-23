@@ -40,18 +40,22 @@ export default class Details extends Component {
 
   render () {
     let { articleDetail,id } = this.state
+    const {userInfo} = this.props
     return (
       <div className='blog'>
         {
           articleDetail &&
           <div className='detail'>
             <h1 className='title'>{articleDetail.title}</h1>
-            <p className='btn-operate'>
-              {
-                id!==9 &&<button className="btn-delete" onClick={this.deleteHandle}>Delete</button>
-              }
-              <Link to={`/blog/edit/${articleDetail.id}`}><button className="btn-edit">Edit</button></Link>
-            </p>
+            {
+              userInfo &&
+              <p className='btn-operate'>
+                {
+                  id!==9 &&<button className="btn-delete" onClick={this.deleteHandle}>Delete</button>
+                }
+                <Link to={`/blog/edit/${articleDetail.id}`}><button className="btn-edit">Edit</button></Link>
+              </p>
+            }
             <div className='content' dangerouslySetInnerHTML={{ __html: articleDetail.content }} />
           </div>
         }

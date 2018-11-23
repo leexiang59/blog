@@ -22,7 +22,7 @@ const util = {
       url,
       options = {},
       done = () => {},
-      fail = json => { console.log(json) },
+      fail = json => {  },
       error = error => { console.log(error) }
     } = {}
   ) {
