@@ -76,10 +76,12 @@ module.exports = {
         } else {
           if (results && results.length > 0) {
             if (results[0].password === body.password) {
+              req.session.userId = results[0].userId // 设置session
               req.session.userName = req.body.name // 设置session
               res.json({
                 state: 0,
                 data: {
+                  userId: results[0].userId,
                   userName: body.name
                 },
                 message: '登录成功'
@@ -122,6 +124,7 @@ module.exports = {
       res.json({
         state: 0,
         data: {
+          userId: session.userId,
           userName: session.userName
         },
         message: '成功'

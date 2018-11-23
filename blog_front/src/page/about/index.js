@@ -15,9 +15,18 @@ export default class About extends Component {
   valueChange = (type, value) => {
     this.setState({[type]: value})
   }
+  // 登出
+  logoutHandle = () => {
+    util.fetchLite({
+      url: `${api.user}logout`,
+      done: data => {
+        window.location.reload()
+      }
+    })
+  }
 
   // 登录
-  loginHandle=()=> {
+  loginHandle = () => {
     let {userName, password} = this.state
     util.fetchLite({
       url: `${api.user}login`,
@@ -34,6 +43,7 @@ export default class About extends Component {
       }
     })
   }
+
   render () {
     // let age = new Date().getFullYear()
     const {userInfo} = this.props
@@ -41,20 +51,22 @@ export default class About extends Component {
     return (
       <div className='about'>
         {
-          !showLogin ?
-            <div className={`logo logo-${userInfo?'login':'logout'}`}
-                 onClick={()=>{this.setState({showLogin:true})}}>
+          !showLogin
+            ? <div className={`logo logo-${userInfo ? 'login' : 'logout'}`}
+                            onClick={() => {this.setState({showLogin: true})}}>
               {/* <img src={homeLogo} alt=''/> */}
             </div>
-            : <div className="login-form">
-              <input type='text'
-                     value={userName}
-                     onChange={(e) => this.valueChange('userName', e.target.value)}/>
-              <input type='password'
-                     value={password}
-                     onChange={(e) => this.valueChange('password', e.target.value)}/>
-              <button onClick={this.loginHandle}>Go</button>
-            </div>
+            : userInfo
+              ? <button onClick={this.logoutHandle}>Logout</button>
+              : <div className="login-form">
+                <input type='text'
+                       value={userName}
+                       onChange={(e) => this.valueChange('userName', e.target.value)}/>
+                <input type='password'
+                       value={password}
+                       onChange={(e) => this.valueChange('password', e.target.value)}/>
+                <button onClick={this.loginHandle}>Go</button>
+              </div>
         }
         <div className='info'>
           <p>Name：Will</p>
