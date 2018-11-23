@@ -64,4 +64,40 @@ module.exports = function (req, res) {
   console.log(Object.getPrototypeOf(c))
   console.log(a.isPrototypeOf(c))
   console.log(Object.prototype.isPrototypeOf(c))
+
+  /**
+   * 数组
+   * */
+  let arr = ['a', 3, 'name', 1, 2]
+  arr.length = 6
+  console.log('排序：', arr.sort())
+  // 遍历
+  let arr_out = ''
+  for (let a of arr) {  // for...of 返回值，不可处理稀疏数组
+    arr_out += `${a},`
+  }
+  console.log(arr_out)
+
+  for (let a in arr) {  // for...in 返回索引，可处理稀疏数组
+    arr_out += `${a},`
+  }
+  console.log(arr_out)
+
+  arr.forEach(function (x) {  // 常用forEach 返回值，可处理稀疏数组，无法提前终止。
+    arr_out += `${x},`
+  })
+  console.log(arr_out)
+
+  for (var i = 0, len = arr.length; i < len; i++) {   // 不可处理稀疏数组，可提前终止。
+    arr_out += `${arr[i]},`
+  }
+  console.log(arr_out)
+
+  // 删除、插入
+  arr.splice(2, 1, '33')
+  console.log(arr)
+
+  /**
+   * 函数
+   * */
 }
