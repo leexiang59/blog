@@ -19,7 +19,7 @@ export default class Resume extends Component {
           />
           <p className="no-support-pdf">
             This browser does not support PDFs. Please download the PDF to view it：
-            <a href='http://www.willli.top/static/media/resume_will.5edd150a.pdf'> Download PDF</a>.
+            <a href='http://www.willli.top/static/media/resume_will.60e513de.pdf'> Download PDF</a>.
           </p>
         </object>
       </div>
