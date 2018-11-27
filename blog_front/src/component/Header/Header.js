@@ -1,3 +1,6 @@
+/**
+ * 头部导航
+ * */
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.less'
@@ -16,13 +19,15 @@ export default class Header extends Component {
   render () {
     let { navList } = this.state
     return (
-      <header className='header'>
-        <ul>
-          {
-            navList.map((item, index) => <li key={index + ''}><Link to={item.href}>{item.title}</Link></li>)
-          }
-        </ul>
-      </header>
+      <>
+        <header className='header'>
+          <ul>
+            {
+              navList.map((item, index) => <li key={index + ''}><Link to={item.href}>{item.title}</Link></li>)
+            }
+          </ul>
+        </header>
+      </>
     )
   }
 }

@@ -20,6 +20,7 @@ class List extends Component {
       }
     })
   }
+
   render () {
     let { articleList } = this.state
     const {userInfo} = this.props

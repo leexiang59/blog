@@ -1,4 +1,6 @@
-
+/**
+ * 利用上下文传递用户信息
+ * */
 import React, {createContext} from 'react'
 const {Provider, Consumer} = createContext()
 
